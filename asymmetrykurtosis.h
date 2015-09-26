@@ -14,7 +14,7 @@
 /**
  * Class for calculating asymmetry and kurtosis in vector
  */
-template <class Type, typename Sum>
+template <class Type>
 class AsymmetryKurtosis
 {
 private:
@@ -25,24 +25,33 @@ private:
     /** Absolute value of vector elements.
      * @param v - vector of elements
      */
-    void absVector (std::vector<Type> v)
+    void absVector (std::vector<Type> &v)
     {
-        Type* data = v.data();
         for (long long i = 0; i < size; i++)
-            data[i] = std::abs(data[i]);
+            v[i] = std::abs(v[i]);
     }
 
     /** Sum of vector elements
      * @param v - vector of elements
-     * @param n - size of vector
      * @return number - sum of vector elements, 0 otherwise.
      */
-    Sum sumVector (std::vector<Type> v)
+    double sumVector (const std::vector<Type> &v)
     {
-        Type* data = v.data();
-        Sum s = 0;
+        double s = 0;
         for (long long i = 0; i < size; i++)
-            s += data[i];
+            s += v[i];
+        return s;
+    }
+
+    /** Sum of vector elements
+     * @param v - vector of elements (double)
+     * @return number - sum of vector elements, 0 otherwise.
+     */
+    double sum(const std::vector<double> &v)
+    {
+        double s = 0;
+        for (long long i = 0; i < size; i++)
+            s += v[i];
         return s;
     }
 
@@ -50,7 +59,7 @@ private:
      * @param s - sum of vector elements
      * @return number - arithmetic mean  of vector elements, 0 otherwise.
      */
-    double arithmeticMean (Sum s)
+    double arithmeticMean (double s)
     {
         double res = s / size;
         return res;
@@ -59,38 +68,32 @@ private:
     /** Central moment of vector elements
      * @param v - vector of elements
      * @param mx - arithmetic mean of vector elements
-     * @return vector - Central moment of vector elements.
+     * @param temp - central moment of vector elements.
      */
-    std::vector<Type> centralMoment (std::vector<Type> v, double mx)
+    void centralMoment (const std::vector<Type> &v, double mx, std::vector<double> &temp)
     {
-        std::vector<Type> temp(size);
-        Type* data = v.data();
         for (long long i = 0; i < size; i++)
-            temp[i] = data[i] - mx;
-        return temp;
+            temp[i] = (double) v[i] - mx;
     }
 
     /** Exponentiation of vector elements.
      * @param s - sum of vector elements
      * @param y - degree
-     * @return vector - after exponentiation.
+     * @param temp - vector after exponentiation.
      */
-    std::vector<Type> exponentiation (std::vector<Type> v, int y)
+    void exponentiation (const std::vector<double> &v, int y, std::vector<double> &temp)
     {
-        std::vector<Type> temp(size);
-        Type* data = v.data();
         for (long long i = 0; i < size; i++)
-            temp[i] = std::pow(data[i], y);
-        return temp;
+            temp[i] = std::pow(v[i], y);
     }
 
     /** Standart deviation of vector elements.
      * @param s - sum of vector elements
      * @return number - standart deviation.
      */
-    double deviation (Sum s)
+    double deviation (double s)
     {
-        double res = std::sqrt( (double) s / (size - 1));
+        double res = std::sqrt( (double) s / (size - 1) );
         return res;
     }
 
@@ -99,7 +102,7 @@ private:
      * @param sig - standart deviation
      * @return number - calculated kurtosis of vector elements.
      */
-    double asymmetry (Sum s, double sig)
+    double asymmetry (double s, double sig)
     {
         double res = s / (size * sig * sig * sig);
         return res;
@@ -110,13 +113,13 @@ private:
      * @param sig - standart deviation
      * @return number - calculated kurtosis of vector elements.
      */
-    double kurtosis(Sum s, double sig)
+    double kurtosis(double s, double sig)
     {
         double res = s / (size * sig * sig * sig * sig) - 3;
         return res;
     }
 public:
-    AsymmetryKurtosis(std::vector <Type> v)
+    AsymmetryKurtosis(std::vector <Type> &v)
     {
         setVector(v);
     }
@@ -124,36 +127,41 @@ public:
     //Calculate asymmetry of vector elements
     double calculateAsymmetry()
     {
-        absVector(vector);
-        Sum s1 = sumVector(vector);
+        //absVector(vector);
+        double s1 = sumVector(vector);
         double Mx = arithmeticMean(s1);
-        std::vector<Type> v2 = centralMoment(vector, Mx);
-        std::vector<Type> v3 = exponentiation(v2, 2);
-        Type s2 = sumVector(v3);
+        std::vector<double> v2(size);
+        centralMoment(vector, Mx, v2);
+        std::vector<double> v3(size);
+        exponentiation(v2, 2, v3);
+        double s2 = sum(v3);
         double sig = deviation(s2);
 
-        v3 = exponentiation(v2, 3);
-        Sum s3 = sumVector(v3);
+        exponentiation(v2, 3, v3);
+        double s3 = sum(v3);
         double asymmetryCalculated = asymmetry(s3, sig);
 
         v2.clear();
         v3.clear();
-        return asymmetryCalculated;       
+        return asymmetryCalculated;
     }
 
     //Calculate kurtosis of vector elements
     double calculateKurtosis()
     {
-        absVector(vector);
-        Sum s1 = sumVector(vector);
+        //absVector(vector);
+        double s1 = sumVector(vector);
         double Mx = arithmeticMean(s1);
-        std::vector<Type> v2 = centralMoment(vector, Mx);
-        std::vector<Type> v3 = exponentiation(v2, 2);
-        Type s2 = sumVector(v3);
+        std::vector<double> v2(size);
+        centralMoment(vector, Mx, v2);
+        std::vector<double> v3(size);
+        exponentiation(v2, 2, v3);
+
+        double s2 = sum(v3);
         double sig = deviation(s2);
 
-        v3 = exponentiation(v2, 4);
-        Sum s4 = sumVector(v3);
+        exponentiation(v2, 4, v3);
+        double s4 = sum(v3);
         double kurtosisCalculated = kurtosis(s4, sig);
 
         v2.clear();
@@ -162,16 +170,16 @@ public:
     }
 
     //Set vector
-    void setVector(std::vector<Type> v)
+    void setVector(std::vector<Type> &v)
     {
         vector = v;
         size = v.size();
     }
 
     //Get vector
-    std::vector<Type> getVector()
+    void getVector(std::vector<Type> &temp)
     {
-        return vector;
+        temp = vector;
     }
 
     ~AsymmetryKurtosis()
