@@ -21,6 +21,10 @@ which has these variables:
 * n - number of elements;
 * sigma (lower-case) - standart deviation of elements.
 
+###Standart deviation, sigma(lower-case)
+
+[Formula for calculating standart deviatino](https://github.com/tkacz-/Asymmetry-Kurtosis/blob/master/Standart%20Deviation.jpg "Standart deviation")
+
 ##Class template
 
 `template <class Type> class AsymmetryKurtosis;`
