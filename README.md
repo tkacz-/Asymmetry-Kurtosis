@@ -23,11 +23,10 @@ which has these variables:
 
 ##Class template
 
-`template <class Type, typename Sum> class AsymmetryKurtosis;`
+`template <class Type> class AsymmetryKurtosis;`
 
 ###Template parameters
 * **Type** - type of vector elements;
-* **Sum** - type of sum vector elemenst;
 
 ###Example
 ```
@@ -35,7 +34,7 @@ which has these variables:
 ...
 int main()
 {
-    AsymmetryKurtosis<int, long long> math(v1);
+    AsymmetryKurtosis<int> math(v1);
     // AsymmetryKurtosis::calculateAsymmetry always returns double number
     double asymmetryCalculated = math.calculateAsymmetry();
     // AsymmetryKurtosis::calculateKurtosis always returns double number
