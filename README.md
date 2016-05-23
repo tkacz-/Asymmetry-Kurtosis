@@ -49,5 +49,3 @@ int main()
     return 0;
 }
 ```
-## Copyright 
-© Andrei Tkachenko (@tkacz-) include.free@gmail.com
