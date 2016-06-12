@@ -23,7 +23,7 @@ which has these variables:
 
 ###Standart deviation, sigma(lower-case)
 
-[Formula for calculating standart deviatino](https://github.com/tkacz-/Asymmetry-Kurtosis/blob/master/Standart%20Deviation.jpg "Standart deviation")
+[Formula for calculating standart deviation](https://github.com/tkacz-/Asymmetry-Kurtosis/blob/master/Standart%20Deviation.jpg "Standart deviation")
 
 ##Class template
 
