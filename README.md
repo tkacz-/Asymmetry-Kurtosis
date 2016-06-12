@@ -23,7 +23,7 @@ which has these variables:
 
 ###Standart deviation, sigma(lower-case)
 
-[!here] (/Standart Deviation.jpg "Standart deviation")
+[Formula for calculating standart deviation] (/Standart Deviation.jpg "Standart deviation")
 
 ##Class template
 
