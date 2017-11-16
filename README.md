@@ -1,19 +1,9 @@
 # Asymmetry-Kurtosis
 Simple class for calculating asymmetry and kurtrosis of vector elements written in C++.
 
-##Asymmetry formula
+## Asymmetry formula
 
-![here] (/Asymmetry Formula.jpg "Asymmetry formula")
-
-which has these variables:
-* sigma (upper-case) - central moment of elements;
-* x - arithmetic mean of elemets.
-* n - number of elements;
-* sigma (lower-case) - standart deviation of elements.
-
-##Kurtosis formula
-
-![here] (/Kurtosis Formula.jpg "Kurtosis formula")
+![here](/Asymmetry%20Formula.jpg "Asymmetry formula")
 
 which has these variables:
 * sigma (upper-case) - central moment of elements;
@@ -21,18 +11,28 @@ which has these variables:
 * n - number of elements;
 * sigma (lower-case) - standart deviation of elements.
 
-###Standart deviation, sigma(lower-case)
+## Kurtosis formula
 
-[Formula for calculating standart deviation] (/Standart Deviation.jpg "Standart deviation")
+![here](/Kurtosis%20Formula.jpg "Kurtosis formula")
 
-##Class template
+which has these variables:
+* sigma (upper-case) - central moment of elements;
+* x - arithmetic mean of elemets.
+* n - number of elements;
+* sigma (lower-case) - standart deviation of elements.
+
+### Standart deviation, sigma(lower-case)
+
+[Formula for calculating standart deviation](/Standart%20Deviation.jpg "Standart deviation")
+
+## Class template
 
 `template <class Type> class AsymmetryKurtosis;`
 
-###Template parameters
+### Template parameters
 * **Type** - type of vector elements;
 
-###Example
+### Example
 ```
 #include "asymmetrykurtosis.h"`
 ...
